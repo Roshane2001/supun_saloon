@@ -51,14 +51,14 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                             <div class="form-group">
                                 <label class="form-label" for="fullname">Full Name</label>
                                 <input type="text" id="fullname" name="customer_name" class="form-control"
-                                    placeholder="e.g. Sarah Jenkins" required>
+                                    placeholder="Your Name" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="email">Email Address</label>
                                 <input type="email" id="email" name="email" class="form-control"
-                                    placeholder="sarah@example.com" required>
+                                    placeholder="Your Email (optional)">
                             </div>
                         </div>
                     </div>
@@ -68,7 +68,9 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                             <div class="form-group">
                                 <label class="form-label" for="telephone_number">Phone Number</label>
                                 <input type="tel" id="telephone_number" name="telephone_number" class="form-control"
-                                    placeholder="(555) 019-2834" required>
+                                    placeholder="07X XXXXXXX" inputmode="numeric" pattern="0[0-9]{9}"
+                                    title="Enter a 10-digit number starting with 0, e.g. 0771234567"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" required>
                             </div>
                         </div>
                         <div class="col-md-6">

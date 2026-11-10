@@ -37,7 +37,6 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
         <ul class="nav-links" data-wsb-nav="">
           <li><a href="#services" class="nav-link">Services</a></li>
           <!--<li><a href="#about" class="nav-link">About Us</a></li>-->
-          <li><a href="#pricing" class="nav-link">Menu &amp; Rates</a></li>
           <!--<li><a href="#stylists" class="nav-link">Stylists</a></li>-->
           <li><a href="#reviews" class="nav-link">Reviews</a></li>
           <li><a href="#booking" class="btn-custom btn-primary-custom" style="padding: 10px 20px; font-size: 0.8rem;">Book Appointment</a></li>
@@ -45,3 +44,42 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
       </nav>
     </div>
   </header>
+
+  <script>
+  (function () {
+    var toggleBtn = document.querySelector('[data-wsb-toggle="nav"]');
+    var navMenu = document.querySelector('[data-wsb-nav]');
+
+    if (!toggleBtn || !navMenu) {
+      return;
+    }
+
+    function setNav(open) {
+      if (open) {
+        navMenu.setAttribute('data-wsb-open', '1');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+      } else {
+        navMenu.removeAttribute('data-wsb-open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    setNav(false);
+
+    toggleBtn.addEventListener('click', function () {
+      setNav(navMenu.getAttribute('data-wsb-open') !== '1');
+    });
+
+    navMenu.addEventListener('click', function (event) {
+      if (event.target.closest('a')) {
+        setNav(false);
+      }
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        setNav(false);
+      }
+    });
+  })();
+  </script>
