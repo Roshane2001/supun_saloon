@@ -34,7 +34,10 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label>Status</label>
-                                <input id="edit_status" name="status" type="text" class="form-control" placeholder="Status" required />
+                                <select id="edit_status" name="status" class="form-control" required>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
                             </div>
                         </div>
                     </div>

@@ -143,7 +143,7 @@ while ($row = mysqli_fetch_assoc($servicers_query)) {
             $('#edit_servicer_id').val(btn.data('id'));
             $('#edit_servicer_name').val(btn.data('name'));
             $('#edit_service_time').val(btn.data('time'));
-            $('#edit_price').val(btn.data('price'));
+            $('#edit_nic_no').val(btn.data('price'));
             $('#edit_status').val(btn.data('status'));
 
         });

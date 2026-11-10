@@ -1,66 +1,152 @@
+
 <?php
-session_start(); // Start the session
+session_start();
+
 include '../include/dbconnection.php';
 
-// Check if the user is logged in, if not, redirect to login page
+// Check staff login
 if (!isset($_SESSION['staff_id'])) {
     header("Location: auth/login.php");
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
-    // Sanitize inputs
-    $product_id = mysqli_real_escape_string($con, $_POST['product_id']);
-    $parent_category_id = mysqli_real_escape_string($con, $_POST['parent_category_id']);
-    $sub_category_id = mysqli_real_escape_string($con, $_POST['sub_category_id']);
-    $product_name = mysqli_real_escape_string($con, $_POST['product_name']);
-    $product_code = mysqli_real_escape_string($con, $_POST['product_code']);
-    $price = mysqli_real_escape_string($con, $_POST['price']);
-    $suplier_id = !empty($_POST['suplier_id']) ? "'" . mysqli_real_escape_string($con, $_POST['suplier_id']) . "'" : "NULL";
+// Check form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_appointment'])) {
 
-    // Handle image upload if a new file is selected
-    $image_update_sql = "";
-    if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] === UPLOAD_ERR_OK) {
-        $uploadFileDir = '../assets/img/products/';
-        $fileName = $_FILES['product_image']['name'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $newFileName = time() . '_' . bin2hex(random_bytes(8)) . '.' . $fileExtension;
-        $dest_path = $uploadFileDir . $newFileName;
+    // Get form data
+    $appointment_id = intval($_POST['appointment_id'] ?? 0);
+    $service_id = intval($_POST['service_id'] ?? 0);
 
-        if (move_uploaded_file($_FILES['product_image']['tmp_name'], $dest_path)) {
-            // You might want to delete the old image here as well
-            $image_update_sql = ", image = '$newFileName'";
-        }
+    $customer_name = trim($_POST['customer_name'] ?? '');
+    $date = trim($_POST['date'] ?? '');
+    $time = trim($_POST['time'] ?? '');
+    $status = isset($_POST['status']) ? intval($_POST['status']) : -1;
+    $note = trim($_POST['note'] ?? '');
+
+    // Validate required fields
+    if (
+        $appointment_id <= 0 ||
+        $service_id <= 0 ||
+        $customer_name === '' ||
+        $date === '' ||
+        $time === '' ||
+        !in_array($status, [0, 1, 2, 3], true)
+    ) {
+        header("Location: appointment_list.php?status=error&message=" . urlencode("Please enter valid appointment details."));
+        exit();
     }
 
-    // Update query
-    $query = "UPDATE tblproduct SET 
-              parent_category_id = '$parent_category_id', 
-              sub_category_id = '$sub_category_id', 
-              suplier_id = $suplier_id, 
-              product_name = '$product_name', 
-              product_code = '$product_code', 
-              price = '$price'
-              $image_update_sql
-              WHERE id = '$product_id'";
+    // Validate date
+    $date_obj = DateTime::createFromFormat('Y-m-d', $date);
 
-    if (mysqli_query($con, $query)) {
-        // Log activity
+    if (!$date_obj || $date_obj->format('Y-m-d') !== $date) {
+        header("Location: appointment_list.php?status=error&message=" . urlencode("Invalid appointment date."));
+        exit();
+    }
+
+    // Validate time
+    if (!preg_match('/^([01]\d|2[0-3]):[0-5]\d$/', $time)) {
+        header("Location: appointment_list.php?status=error&message=" . urlencode("Invalid appointment time."));
+        exit();
+    }
+
+    // Check whether service exists and is active
+    $service_check = mysqli_prepare(
+        $con,
+        "SELECT id FROM servicers WHERE id = ? AND status = 1"
+    );
+
+    mysqli_stmt_bind_param($service_check, "i", $service_id);
+    mysqli_stmt_execute($service_check);
+
+    $service_result = mysqli_stmt_get_result($service_check);
+
+    if (mysqli_num_rows($service_result) === 0) {
+        mysqli_stmt_close($service_check);
+
+        header("Location: appointment_list.php?status=error&message=" . urlencode("Selected service is unavailable."));
+        exit();
+    }
+
+    mysqli_stmt_close($service_check);
+
+    // Update appointment
+    $query = "UPDATE tblappointment SET
+                service_id = ?,
+                customer_name = ?,
+                date = ?,
+                time = ?,
+                status = ?,
+                note = ?
+              WHERE id = ?";
+
+    $stmt = mysqli_prepare($con, $query);
+
+    if (!$stmt) {
+        header("Location: appointment_list.php?status=error&message=" . urlencode(mysqli_error($con)));
+        exit();
+    }
+
+    mysqli_stmt_bind_param(
+        $stmt,
+        "isssisi",
+        $service_id,
+        $customer_name,
+        $date,
+        $time,
+        $status,
+        $note,
+        $appointment_id
+    );
+
+    if (mysqli_stmt_execute($stmt)) {
+
+        // Log user activity
         $user_id = $_SESSION['staff_id'];
-        $ip_address = $_SERVER['REMOTE_ADDR'];
-        $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT']);
-        
-        $clean_sup = str_replace("'", "", $suplier_id); // Remove quotes for cleaner logging
-        $details = "Updated Product: $product_name (ID: $product_id) | Code: $product_code | Category ID: $sub_category_id | Supplier ID: $clean_sup | Price: $price";
+        $ip_address = $_SERVER['REMOTE_ADDR'] ?? '';
+        $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-        $log_query = "INSERT INTO tbluser_activity (user_id, action, ip_address, user_agent, details) 
-                      VALUES ('$user_id', 'Update Product', '$ip_address', '$user_agent', '$details')";
-        mysqli_query($con, $log_query);
+        $details = "Updated Appointment ID: $appointment_id | Customer: $customer_name | Service ID: $service_id | Date: $date | Time: $time | Status: $status";
+
+        $log_stmt = mysqli_prepare(
+            $con,
+            "INSERT INTO tbluser_activity
+            (user_id, action, ip_address, user_agent, details)
+            VALUES (?, 'Update Appointment', ?, ?, ?)"
+        );
+
+        if ($log_stmt) {
+            mysqli_stmt_bind_param(
+                $log_stmt,
+                "isss",
+                $user_id,
+                $ip_address,
+                $user_agent,
+                $details
+            );
+
+            mysqli_stmt_execute($log_stmt);
+            mysqli_stmt_close($log_stmt);
+        }
+
+        mysqli_stmt_close($stmt);
 
         header("Location: appointment_list.php?status=success");
+        exit();
+
     } else {
-        header("Location: appointment_list.php?status=error&message=" . urlencode(mysqli_error($con)));
+
+        $error = mysqli_stmt_error($stmt);
+
+        mysqli_stmt_close($stmt);
+
+        header("Location: appointment_list.php?status=error&message=" . urlencode($error));
+        exit();
     }
+
+} else {
+
+    header("Location: appointment_list.php");
     exit();
 }
 ?>

@@ -232,6 +232,7 @@ if ($product_query) {
                                                     <th>Service</th>
                                                     <th>Date</th>
                                                     <th>Time</th>
+
                                                     <th>Status</th>
                                                     <th>Note</th>
                                                     <th style="width: 10%">Action</th>
@@ -265,6 +266,7 @@ if ($product_query) {
                                                     <td>
                                                         <?php echo htmlspecialchars($product['time'] ?? 'N/A'); ?>
                                                     </td>
+
 
 
                                                     <!-- Appointment Status -->
@@ -309,25 +311,20 @@ if ($product_query) {
                                                     <!-- Action -->
                                                     <td>
 
-                                                        <div class="form-button-action">
+                                                        <button type="button"
+                                                            class="btn btn-primary btn-edit-appointment"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#editAppointmentModal"
+                                                            data-id="<?php echo htmlspecialchars($product['id']); ?>"
+                                                            data-service-id="<?php echo htmlspecialchars($product['service_id']); ?>"
+                                                            data-customer-name="<?php echo htmlspecialchars($product['customer_name'], ENT_QUOTES); ?>"
+                                                            data-date="<?php echo htmlspecialchars($product['date'] ?? ''); ?>"
+                                                            data-time="<?php echo htmlspecialchars($product['time'] ?? ''); ?>"
+                                                            data-status="<?php echo htmlspecialchars($product['status']); ?>"
+                                                            data-note="<?php echo htmlspecialchars($product['note'] ?? '', ENT_QUOTES); ?>">
 
-                                                            <button type="button"
-                                                                class="btn btn-link btn-primary btn-lg btn-edit-product"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#editProductModal"
-                                                                data-id="<?php echo htmlspecialchars($product['id']); ?>"
-                                                                data-parent="<?php echo htmlspecialchars($product['service_name'] ?? ''); ?>"
-                                                                data-name="<?php echo htmlspecialchars($product['customer_name']); ?>"
-                                                                data-code="<?php echo htmlspecialchars($product['date'] ?? ''); ?>"
-                                                                data-time="<?php echo htmlspecialchars($product['time'] ?? ''); ?>"
-                                                                data-status="<?php echo htmlspecialchars($product['status']); ?>"
-                                                                title="Edit Appointment">
-
-                                                                <i class="fa fa-edit"></i>
-
-                                                            </button>
-
-                                                        </div>
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
 
                                                     </td>
 
@@ -377,6 +374,27 @@ if ($product_query) {
         $('#add-row').DataTable({
             pageLength: 10,
             order: []
+        });
+
+        // Populate Edit Appointment Modal
+        $(document).on('click', '.btn-edit-appointment', function() {
+
+            var btn = $(this);
+
+            $('#edit_appointment_id').val(btn.attr('data-id'));
+
+            $('#edit_service_id').val(btn.attr('data-service-id'));
+
+            $('#edit_customer_name').val(btn.attr('data-customer-name'));
+
+            $('#edit_date').val(btn.attr('data-date'));
+
+            $('#edit_time').val(btn.attr('data-time'));
+
+            $('#edit_status').val(btn.attr('data-status'));
+
+            $('#edit_note').val(btn.attr('data-note'));
+
         });
 
     });
