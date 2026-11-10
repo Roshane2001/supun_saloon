@@ -38,6 +38,7 @@ $base_path = '../';
                     <p>Certified Master Stylists</p>
                     <h4>Award-Winning Experience</h4>
                 </div>
+                
             </div>
         </div>
     </div>
