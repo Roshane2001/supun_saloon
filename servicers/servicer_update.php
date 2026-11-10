@@ -15,16 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
     $servicer_name = mysqli_real_escape_string($con, $_POST['servicer_name']);
     $nic_no = mysqli_real_escape_string($con, $_POST['nic_no']);
     $service_time = mysqli_real_escape_string($con, $_POST['service_time']);
-    $username = mysqli_real_escape_string($con, $_POST['username']);
     $status = mysqli_real_escape_string($con, $_POST['status']);
-    $password = $_POST['password'];
 
     // SQL query to update data in tblservicers
     $query = "UPDATE servicers SET
               servicer_name = '$servicer_name',
-              nic_no = '$nic_no',
+              price = '$nic_no',
               service_time = '$service_time',
-              username = '$username'";
+              status = '$status'";
 
     // Only update password if a new one is provided
     if (!empty($password)) {
