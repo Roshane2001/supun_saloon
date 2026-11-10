@@ -32,10 +32,14 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                 <p style="margin-top: 16px; margin-bottom: 24px;">Select your preferred date and service. Our concierge
                     team will review your booking request and confirm within 2 hours.</p>
 
-                <div style="margin-bottom: 20px;">
+                <!--<div style="margin-bottom: 20px;">
                     <h4 style="color: var(--bg-cream); font-size: 1.2rem; margin-bottom: 6px;">Opening Hours</h4>
                     <p style="font-size: 0.95rem;">Tuesday – Saturday: 9:00 AM – 7:00 PM<br>Sunday: 10:00 AM – 5:00
                         PM<br>Monday: Closed</p>
+                </div>-->
+                <div style="margin-bottom: 20px;">
+                    <h4 style="color: var(--bg-cream); font-size: 1.2rem; margin-bottom: 6px;">Opening Hours</h4>
+                    <p style="font-size: 0.95rem;">Seven Days Open</p>
                 </div>
 
                 <div>
@@ -92,8 +96,7 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="date">Preferred Date</label>
-                                <input type="date" id="date" name="date" class="form-control"
-                                    required>
+                                <input type="date" id="date" name="date" class="form-control" required>
                             </div>
                         </div>
                         <div class="col-md-6">

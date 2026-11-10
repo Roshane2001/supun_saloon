@@ -25,7 +25,7 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
       <div class="row">
         <div class="col-lg-4" style="margin-bottom: 30px;">
           <div class="footer-brand">
-            <img src="<?php echo $logo_path; ?>" alt="Aura Luxe Salon logo" data-email-logo="1" style="height:36px;width:auto;display:block;margin-bottom:12px">
+            <img src="<?php echo $logo_path; ?>" alt="Aura Luxe Salon logo" data-email-logo="1" style="width:200px;display:block;margin-bottom:12px">
             <span class="footer-title"><?php echo $company_name; ?></span>
           </div>
           <p class="footer-desc">A premium hair and beauty studio committed to effortless luxury, bespoke styling, and hair health.</p>
@@ -36,8 +36,8 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
           <ul class="footer-links">
             <li><a href="#hero">Home</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#pricing">Pricing</a></li>
+            <!--<li><a href="#about">About Us</a></li>-->
+            <!--<li><a href="#pricing">Pricing</a></li>-->
             <li><a href="#stylists">Stylists</a></li>
           </ul>
         </div>

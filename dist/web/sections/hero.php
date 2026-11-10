@@ -12,7 +12,7 @@ $base_path = '../';
                 </h1>
 
                 <p class="hero-text">
-                    Welcome to Aura Luxe — an upscale sanctuary designed for bespoke hair styling,
+                    Welcome to Supun Saloon — an upscale sanctuary designed for bespoke hair styling,
                     precision color, revitalizing skin treatments, and serene self-care.
                 </p>
 
@@ -22,9 +22,9 @@ $base_path = '../';
                         Reserve Your Session
                     </a>
 
-                    <a href="#services" class="btn-custom btn-outline-custom">
+                    <!--<a href="#services" class="btn-custom btn-outline-custom">
                         Explore Menu
-                    </a>
+                    </a>-->
                 </div>
             </div>
 
