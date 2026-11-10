@@ -139,22 +139,20 @@ if ($product_query) {
                                     <!-- Status Alerts -->
                                     <?php if (isset($_GET['status'])): ?>
 
-                                        <div class="alert alert-<?php echo $_GET['status'] == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show"
-                                            role="alert">
+                                    <div class="alert alert-<?php echo $_GET['status'] == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show"
+                                        role="alert">
 
-                                            <?php
+                                        <?php
                                             echo $_GET['status'] == 'success'
                                                 ? 'Operation successful!'
                                                 : 'Error: ' . htmlspecialchars($_GET['message'] ?? 'Unknown error');
                                             ?>
 
-                                            <button type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="alert"
-                                                aria-label="Close">
-                                            </button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close">
+                                        </button>
 
-                                        </div>
+                                    </div>
 
                                     <?php endif; ?>
 
@@ -175,9 +173,7 @@ if ($product_query) {
 
                                                 <div class="input-group">
 
-                                                    <input type="date"
-                                                        name="appointment_date"
-                                                        class="form-control"
+                                                    <input type="date" name="appointment_date" class="form-control"
                                                         value="<?php echo htmlspecialchars($selected_date); ?>">
 
                                                     <button type="submit" class="btn btn-primary">
@@ -200,22 +196,22 @@ if ($product_query) {
                                     <!-- Selected Date Information -->
                                     <?php if (!empty($selected_date)): ?>
 
-                                        <div class="alert alert-info py-2">
+                                    <div class="alert alert-info py-2">
 
-                                            <i class="fa fa-calendar"></i>
+                                        <i class="fa fa-calendar"></i>
 
-                                            Showing appointments for:
+                                        Showing appointments for:
 
-                                            <strong>
-                                                <?php echo date('d M Y', strtotime($selected_date)); ?>
-                                            </strong>
+                                        <strong>
+                                            <?php echo date('d M Y', strtotime($selected_date)); ?>
+                                        </strong>
 
-                                            <span class="ms-2">
-                                                | Total Appointments:
-                                                <strong><?php echo count($product_data); ?></strong>
-                                            </span>
+                                        <span class="ms-2">
+                                            | Total Appointments:
+                                            <strong><?php echo count($product_data); ?></strong>
+                                        </span>
 
-                                        </div>
+                                    </div>
 
                                     <?php endif; ?>
 
@@ -248,33 +244,33 @@ if ($product_query) {
 
                                                 <?php foreach ($product_data as $product): ?>
 
-                                                    <tr>
+                                                <tr>
 
-                                                        <td>
-                                                            <?php echo htmlspecialchars($product['id']); ?>
-                                                        </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['id']); ?>
+                                                    </td>
 
-                                                        <td>
-                                                            <?php echo htmlspecialchars($product['customer_name']); ?>
-                                                        </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['customer_name']); ?>
+                                                    </td>
 
-                                                        <td>
-                                                            <?php echo htmlspecialchars($product['service_name'] ?? 'N/A'); ?>
-                                                        </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['service_name'] ?? 'N/A'); ?>
+                                                    </td>
 
-                                                        <td>
-                                                            <?php echo htmlspecialchars($product['date'] ?? 'N/A'); ?>
-                                                        </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['date'] ?? 'N/A'); ?>
+                                                    </td>
 
-                                                        <td>
-                                                            <?php echo htmlspecialchars($product['time'] ?? 'N/A'); ?>
-                                                        </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['time'] ?? 'N/A'); ?>
+                                                    </td>
 
 
-                                                        <!-- Appointment Status -->
-                                                        <td>
+                                                    <!-- Appointment Status -->
+                                                    <td>
 
-                                                            <?php
+                                                        <?php
 
                                                             $st = $product['status'] ?? null;
 
@@ -302,47 +298,40 @@ if ($product_query) {
 
                                                             ?>
 
-                                                        </td>
+                                                    </td>
 
 
-                                                        <td>
-                                                            <?php echo htmlspecialchars($product['note'] ?? 'N/A'); ?>
-                                                        </td>
+                                                    <td>
+                                                        <?php echo htmlspecialchars($product['note'] ?? 'N/A'); ?>
+                                                    </td>
 
 
-                                                        <!-- Action -->
-                                                        <td>
+                                                    <!-- Action -->
+                                                    <td>
 
-                                                            <div class="form-button-action">
+                                                        <div class="form-button-action">
 
-                                                                <button type="button"
-                                                                    class="btn btn-link btn-primary btn-lg btn-edit-product"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#editProductModal"
+                                                            <button type="button"
+                                                                class="btn btn-link btn-primary btn-lg btn-edit-product"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#editProductModal"
+                                                                data-id="<?php echo htmlspecialchars($product['id']); ?>"
+                                                                data-parent="<?php echo htmlspecialchars($product['service_name'] ?? ''); ?>"
+                                                                data-name="<?php echo htmlspecialchars($product['customer_name']); ?>"
+                                                                data-code="<?php echo htmlspecialchars($product['date'] ?? ''); ?>"
+                                                                data-time="<?php echo htmlspecialchars($product['time'] ?? ''); ?>"
+                                                                data-status="<?php echo htmlspecialchars($product['status']); ?>"
+                                                                title="Edit Appointment">
 
-                                                                    data-id="<?php echo htmlspecialchars($product['id']); ?>"
+                                                                <i class="fa fa-edit"></i>
 
-                                                                    data-parent="<?php echo htmlspecialchars($product['service_name'] ?? ''); ?>"
+                                                            </button>
 
-                                                                    data-name="<?php echo htmlspecialchars($product['customer_name']); ?>"
+                                                        </div>
 
-                                                                    data-code="<?php echo htmlspecialchars($product['date'] ?? ''); ?>"
+                                                    </td>
 
-                                                                    data-time="<?php echo htmlspecialchars($product['time'] ?? ''); ?>"
-
-                                                                    data-status="<?php echo htmlspecialchars($product['status']); ?>"
-
-                                                                    title="Edit Appointment">
-
-                                                                    <i class="fa fa-edit"></i>
-
-                                                                </button>
-
-                                                            </div>
-
-                                                        </td>
-
-                                                    </tr>
+                                                </tr>
 
                                                 <?php endforeach; ?>
 
@@ -382,15 +371,15 @@ if ($product_query) {
 
 
     <script>
-        $(document).ready(function() {
+    $(document).ready(function() {
 
-            // Initialize DataTable
-            $('#add-row').DataTable({
-                pageLength: 10,
-                order: []
-            });
-
+        // Initialize DataTable
+        $('#add-row').DataTable({
+            pageLength: 10,
+            order: []
         });
+
+    });
     </script>
 
 </body>

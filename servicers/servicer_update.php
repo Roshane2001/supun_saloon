@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
     $password = $_POST['password'];
 
     // SQL query to update data in tblservicers
-    $query = "UPDATE tblservicers SET
+    $query = "UPDATE servicers SET
               servicer_name = '$servicer_name',
               nic_no = '$nic_no',
               service_time = '$service_time',
