@@ -57,9 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_product'])) {
                       VALUES ('$user_id', 'Update Product', '$ip_address', '$user_agent', '$details')";
         mysqli_query($con, $log_query);
 
-        header("Location: product_list.php?status=success");
+        header("Location: appointment_list.php?status=success");
     } else {
-        header("Location: product_list.php?status=error&message=" . urlencode(mysqli_error($con)));
+        header("Location: appointment_list.php?status=error&message=" . urlencode(mysqli_error($con)));
     }
     exit();
 }
