@@ -11,7 +11,7 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
              : $base_path . 'assets/img/kaiadmin/logo_light.svg';
 ?>
 <div class="logo-header" data-background-color="dark">
-    <a href="index.php" class="logo">
+    <a href="<?php echo $base_path; ?>index.php" class="logo">
         <img src="<?php echo $logo_path; ?>" alt="<?php echo htmlspecialchars($company_name); ?>" class="navbar-brand" height="20" />
     </a>
     <div class="nav-toggle">
