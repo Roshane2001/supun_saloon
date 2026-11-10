@@ -65,8 +65,16 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
             </div>
         </div>
 
-        <div class="footer-bottom">
-            <p>© 2026 Develope by @FEIT Solutions</p>
+        <div class="footer-bottom text-center">
+            <p class="m-0 text-center text-white">
+                &copy; <?= date('Y'); ?>
+                <a href="https://www.feitsolutions.com/"
+                   target="_blank"
+                   class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500 text-decoration-none">
+                    FE IT Solutions 
+                </a>.
+                All rights reserved.
+            </p>
         </div>
     </div>
 </footer>

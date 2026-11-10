@@ -12,7 +12,15 @@ if (isset($_POST['save_branding'])) {
     // Basic Input Sanitization
     $company_name = mysqli_real_escape_string($con, $_POST['company_name']);
     $company_email = mysqli_real_escape_string($con, $_POST['company_email']);
-    $telephone = mysqli_real_escape_string($con, $_POST['telephone']);
+    $telephone = trim($_POST['telephone'] ?? '');
+    // Normalise the phone number so "011 234 5678" is accepted as 0112345678
+    $telephone = preg_replace('/\D+/', '', $telephone);
+    // Validate 10-digit phone number when provided
+    if ($telephone !== '' && !preg_match('/^0\d{9}$/', $telephone)) {
+        header("Location: branding.php?status=error&message=" . urlencode("Please enter a valid 10-digit telephone number (e.g. 0112345678)."));
+        exit();
+    }
+    $telephone = mysqli_real_escape_string($con, $telephone);
     $address = mysqli_real_escape_string($con, $_POST['address']);
 
     // Prepare upload directory

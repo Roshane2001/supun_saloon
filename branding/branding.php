@@ -60,7 +60,7 @@ $data = mysqli_fetch_assoc($query);
                                     <div class="card-body">
                                         <?php if(isset($_GET['status'])): ?>
                                             <div class="alert alert-<?php echo $_GET['status'] == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show" role="alert">
-                                                <?php echo $_GET['status'] == 'success' ? 'Branding updated successfully!' : 'Error processing request.'; ?>
+                                                <?php echo $_GET['status'] == 'success' ? 'Branding updated successfully!' : (isset($_GET['message']) ? htmlspecialchars($_GET['message']) : 'Error processing request.'); ?>
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                         <?php endif; ?>
@@ -76,7 +76,7 @@ $data = mysqli_fetch_assoc($query);
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="telephone">Telephone No</label>
-                                                    <input type="text" class="form-control" id="telephone" name="telephone" value="<?php echo $data['telephone'] ?? ''; ?>" placeholder="Enter Telephone Number" />
+                                                    <input type="tel" class="form-control" id="telephone" name="telephone" value="<?php echo $data['telephone'] ?? ''; ?>" placeholder="Enter Telephone Number (10 digits)" inputmode="numeric" pattern="0[0-9]{9}" title="Enter a 10-digit number starting with 0, e.g. 0112345678" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="address">Address</label>

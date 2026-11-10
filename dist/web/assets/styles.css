@@ -718,6 +718,16 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       text-align: center;
       font-size: 0.85rem;
+      color: #ffffff;
+    }
+
+    .footer-bottom a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .footer-bottom a:hover {
+      text-decoration: none;
     }
 
     /* Responsive Breakpoints */

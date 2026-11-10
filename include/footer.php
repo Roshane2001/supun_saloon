@@ -15,13 +15,16 @@
                 </li>
             </ul>
         </nav>
-        <div class="copyright">
-            2024, made with <i class="fa fa-heart heart text-danger"></i> by
-            <!--<a href="http://www.themekita.com">ThemeKita</a>-->
-        </div>
-        <div>
-            Distributed by
-            <a target="_blank" href="https://feitsolutions.com/">FEIT Solutions</a>.
+        <div class="copyright text-center">
+            <p class="m-0 text-center">
+                &copy; <?= date('Y'); ?>
+                <a href="https://www.feitsolutions.com/"
+                   target="_blank"
+                   class="text-theme-bodycolor dark:text-themedark-bodycolor hover:text-primary-500 dark:hover:text-primary-500 text-decoration-none">
+                    FE IT Solutions
+                </a>.
+                All rights reserved.
+            </pus>
         </div>
     </div>
 </footer>
