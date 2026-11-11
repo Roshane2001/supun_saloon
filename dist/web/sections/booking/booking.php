@@ -29,7 +29,7 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
             <div class="booking-success-alert" role="alert">
                 <button type="button" class="booking-success-close" onclick="this.parentElement.remove();"
                     aria-label="Close">&times;</button>
-                <strong>Booking received!</strong> Your salon session request has been submitted successfully.
+                <strong>Booking received!</strong> Your Saloon session request has been submitted successfully.
                 Our concierge team will review it and confirm within 2 hours.
                 <?php if (isset($_GET['booking_id']) && $_GET['booking_id'] !== ''): ?>
                     <div style="margin-top: 8px; font-weight: 600;">
@@ -54,7 +54,7 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
         <div class="row align-items-center">
             <div class="col-lg-6" style="margin-bottom: 30px;">
                 <span class="sub-title">Online Reservations</span>
-                <h2 class="main-title">Book Your Salon Session</h2>
+                <h2 class="main-title">Book Your Saloon Session</h2>
                 <p style="margin-top: 16px; margin-bottom: 24px;">Select your preferred date and service. Our concierge
                     team will review your booking request and confirm within 2 hours.</p>
 
@@ -74,7 +74,7 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                 </div>
 
                 <div class="booking-map" style="margin-top: 18px; border-radius: var(--radius-md, 8px); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08);">
-                    <iframe title="Salon location map"
+                    <iframe title="Saloon location map"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.34911246596!2d79.99272241125047!3d7.200950792774523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2e1a82b85d1e1%3A0x1bef35c591532203!2sEkala%20-%20Kotadeniyawa%20Rd!5e0!3m2!1sen!2slk!4v1794381761072!5m2!1sen!2slk"
                         width="100%" height="265" style="border: 0; display: block;"
                         loading="lazy" referrerpolicy="strict-origin-when-cross-origin"

@@ -24,7 +24,7 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
     <div class="container">
       <nav class="navbar">
         <a href="#hero" class="brand-logo-link">
-          <img src="<?php echo htmlspecialchars($logo_path); ?>" alt="Aura Luxe Salon logo" data-email-logo="1" style="height:36px;width:auto;display:block">
+          <img src="<?php echo htmlspecialchars($logo_path); ?>" alt="Supun Saloon logo" data-email-logo="1" style="height:36px;width:auto;display:block">
           <span class="brand-title"><?php echo htmlspecialchars($company_name); ?></span>
         </a>
 

@@ -4,7 +4,7 @@
             <div class="col-lg-6">
                 <div class="about-img-grid">
                     <img src="https://editors-cdn.template.net/document-image-1793689641404-dfv3e4.webp"
-                        data-img-prompt="A professional hairstylist carefully applying highlights to a client's blonde hair with foil, soft daylight coming through salon windows."
+                        data-img-prompt="A professional hairstylist carefully applying highlights to a client's blonde hair with foil, soft daylight coming through Saloon windows."
                         alt="Stylist Working" class="about-img-1" width="400" height="420" data-img-state="done"
                         style="">
                     <img src="https://editors-cdn.template.net/document-image-1793689640988-vnbnmo.webp"
@@ -15,9 +15,9 @@
             </div>
             <div class="col-lg-6">
                 <div class="about-content">
-                    <span class="sub-title">The Aura Luxe Distinction</span>
+                    <span class="sub-title">The Supun Saloon Distinction</span>
                     <h2 class="main-title">A Sanctuary for Wellness &amp; Style</h2>
-                    <p>Founded in 2026, Aura Luxe was built on the philosophy that hair design is a personal fine art.
+                    <p>Founded in 2026, Supun Saloon was built on the philosophy that hair design is a personal fine art.
                         We reject cookie-cutter haircuts in favor of tailored aesthetics that highlight your
                         individuality.</p>
 
@@ -41,7 +41,7 @@
 
                     <div>
                         <a href="#booking" class="btn-custom btn-primary-custom" data-wsb-action="scroll-to"
-                            data-wsb-target="#booking">Experience Aura Luxe</a>
+                            data-wsb-target="#booking">Experience Supun Saloon</a>
                     </div>
                 </div>
             </div>

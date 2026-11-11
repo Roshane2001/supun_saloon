@@ -25,7 +25,7 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
         <div class="row">
             <div class="col-lg-4" style="margin-bottom: 30px;">
                 <div class="footer-brand">
-                    <img src="<?php echo $logo_path; ?>" alt="Aura Luxe Salon logo" data-email-logo="1"
+                    <img src="<?php echo $logo_path; ?>" alt="Supun Saloon logo" data-email-logo="1"
                         style="width:200px;display:block;margin-bottom:12px">
                     <span class="footer-title"><?php echo $company_name; ?></span>
                 </div>
@@ -64,7 +64,7 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
                 <p style="font-size: 0.95rem;"> <?php echo htmlspecialchars($branding_data['address'] ?? ''); ?></p>
 
                 <?php
-                // Replace these with the salon's real profile URLs
+                // Replace these with the Saloon's real profile URLs
                 $whatsapp_number = preg_replace('/\D+/', '', $branding_data['telephone'] ?? '');
                 $social_links = [
                     'facebook' => 'https://www.facebook.com/',
