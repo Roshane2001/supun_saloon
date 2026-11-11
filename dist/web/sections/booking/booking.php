@@ -25,6 +25,26 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
 <!-- Booking Form Section -->
 <section id="booking" class="section-padding booking-section">
     <div class="container">
+        <?php if (isset($_GET['booking']) && $_GET['booking'] === 'success'): ?>
+            <div class="booking-success-alert" role="alert">
+                <button type="button" class="booking-success-close" onclick="this.parentElement.remove();"
+                    aria-label="Close">&times;</button>
+                <strong>Booking received!</strong> Your salon session request has been submitted successfully.
+                Our concierge team will review it and confirm within 2 hours.
+            </div>
+            <script>
+                (function () {
+                    if (window.history && window.history.replaceState) {
+                        var url = new URL(window.location.href);
+                        if (url.searchParams.has('booking')) {
+                            url.searchParams.delete('booking');
+                            window.history.replaceState({}, document.title, url.pathname + url.hash);
+                        }
+                    }
+                })();
+            </script>
+        <?php endif; ?>
+
         <div class="row align-items-center">
             <div class="col-lg-6" style="margin-bottom: 30px;">
                 <span class="sub-title">Online Reservations</span>
@@ -45,6 +65,14 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                 <div>
                     <h4 style="color: var(--bg-cream); font-size: 1.2rem; margin-bottom: 6px;">Location</h4>
                     <p style="font-size: 0.95rem;"><?php echo htmlspecialchars($branding_data['address'] ?? ''); ?></p>
+                </div>
+
+                <div class="booking-map" style="margin-top: 18px; border-radius: var(--radius-md, 8px); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08);">
+                    <iframe title="Salon location map"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11127.397896455033!2d79.90967028320453!3d7.07255894105241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f0aad3812f91%3A0xb29ffabfd057ba2f!2sSupun%20Salon!5e0!3m2!1sen!2slk!4v1794373822625!5m2!1sen!2slk"
+                        width="100%" height="200" style="border: 0; display: block;"
+                        loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen></iframe>
                 </div>
             </div>
 

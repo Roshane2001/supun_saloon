@@ -668,6 +668,39 @@
       color: var(--bg-cream);
     }
 
+    /* Booking success alert */
+    .booking-success-alert {
+      background: rgba(49, 206, 54, 0.12);
+      border: 1px solid rgba(49, 206, 54, 0.4);
+      color: #d1e7dd;
+      padding: 16px 20px;
+      border-radius: var(--radius-md, 8px);
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      position: relative;
+    }
+
+    .booking-success-alert strong {
+      color: #ffffff;
+    }
+
+    .booking-success-close {
+      float: right;
+      margin-left: 12px;
+      background: none;
+      border: none;
+      color: inherit;
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    .booking-success-close:hover {
+      opacity: 1;
+    }
+
     /* Footer */
     .footer {
       background-color: #171412;

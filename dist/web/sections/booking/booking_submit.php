@@ -152,11 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_booking'])) {
 
 
     $booking_id = mysqli_insert_id($con);
-        // Booking successful
-        echo "<script>
-            alert('Your booking request has been submitted successfully!');
-            window.location.href = '../booking_confirm.php?booking_id=' + $booking_id;
-        </script>";
+        header("Location: ../../index.php?booking=success#booking");
         exit();
 
     } else {
