@@ -26,9 +26,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_staff'])) {
     }
 
     $telephone_no = mysqli_real_escape_string($con, $telephone_no);
-    $role_id = mysqli_real_escape_string($con, $_POST['role_id']);
+    $role_id = mysqli_real_escape_string($con, $_POST['role_id'] ?? '');
     $username = mysqli_real_escape_string($con, $_POST['username']);
+
+    // A staff member cannot change their own role
+    if ($staff_id == $_SESSION['staff_id']) {
+        $role_res = mysqli_query($con, "SELECT role_id FROM tblstaff WHERE id = '$staff_id' LIMIT 1");
+        if ($role_row = mysqli_fetch_assoc($role_res)) {
+            $role_id = mysqli_real_escape_string($con, $role_row['role_id']);
+        }
+    }
     $password = $_POST['password'];
+
+    // Duplicate checks: NIC number, username, and telephone number must be unique (excluding this staff)
+    $duplicate_fields = [];
+
+    $dup_check = mysqli_query($con, "SELECT id FROM tblstaff WHERE nic_no = '$nic_no' AND id != '$staff_id' LIMIT 1");
+    if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+        $duplicate_fields[] = 'NIC number';
+    }
+
+    if ($username !== '') {
+        $dup_check = mysqli_query($con, "SELECT id FROM tblstaff WHERE username = '$username' AND id != '$staff_id' LIMIT 1");
+        if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+            $duplicate_fields[] = 'username';
+        }
+    }
+
+    if ($telephone_no !== '') {
+        $dup_check = mysqli_query($con, "SELECT id FROM tblstaff WHERE telephone_no = '$telephone_no' AND id != '$staff_id' LIMIT 1");
+        if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+            $duplicate_fields[] = 'telephone number';
+        }
+    }
+
+    if (!empty($duplicate_fields)) {
+        $message = 'A staff member with the same ' . implode(', ', $duplicate_fields) . ' already exists.';
+        header("Location: staff_list.php?status=error&message=" . urlencode($message));
+        exit();
+    }
 
     // SQL query to update data in tblstaff
     $query = "UPDATE tblstaff SET

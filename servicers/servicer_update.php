@@ -16,6 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
     $nic_no = mysqli_real_escape_string($con, $_POST['nic_no']);
     $service_time = mysqli_real_escape_string($con, $_POST['service_time']);
     $status = mysqli_real_escape_string($con, $_POST['status']);
+    $dup_check = mysqli_query($con, "SELECT id FROM servicers WHERE servicer_name = '$servicer_name' AND id != '$servicer_id' LIMIT 1");
+    if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+        header("Location: servicers_list.php?status=error&message=" . urlencode('A service with the same name already exists.'));
+        exit();
+    }
 
     // SQL query to update data in tblservicers
     $query = "UPDATE servicers SET

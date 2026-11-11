@@ -31,6 +31,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_staff'])) {
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
 
+    // Duplicate checks: NIC number, username, and telephone number must be unique
+    $duplicate_fields = [];
+
+    $dup_check = mysqli_query($con, "SELECT id FROM tblstaff WHERE nic_no = '$nic_no' LIMIT 1");
+    if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+        $duplicate_fields[] = 'NIC number';
+    }
+
+    if ($username !== '') {
+        $dup_check = mysqli_query($con, "SELECT id FROM tblstaff WHERE username = '$username' LIMIT 1");
+        if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+            $duplicate_fields[] = 'username';
+        }
+    }
+
+    if ($telephone_no !== '') {
+        $dup_check = mysqli_query($con, "SELECT id FROM tblstaff WHERE telephone_no = '$telephone_no' LIMIT 1");
+        if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+            $duplicate_fields[] = 'telephone number';
+        }
+    }
+
+    if (!empty($duplicate_fields)) {
+        $message = 'A staff member with the same ' . implode(', ', $duplicate_fields) . ' already exists.';
+        header("Location: staff_form.php?status=error&message=" . urlencode($message));
+        exit();
+    }
+
     // SQL query to insert data into tblstaff
     $query = "INSERT INTO tblstaff (staff_name, nic_no, address, telephone_no, role_id, username, password, is_active) 
               VALUES ('$staff_name', '$nic_no', '$address', '$telephone_no', '$role_id', '$username', '$hashed_password', 1)";

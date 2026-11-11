@@ -15,6 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
     $servicer_time = mysqli_real_escape_string($con, $_POST['service_time']);
     $price = mysqli_real_escape_string($con, $_POST['price']);
 
+    $dup_check = mysqli_query($con, "SELECT id FROM servicers WHERE servicer_name = '$servicer_name' LIMIT 1");
+    if ($dup_check && mysqli_num_rows($dup_check) > 0) {
+        header("Location: servicers_add.php?status=error&message=" . urlencode('A service with the same name already exists.'));
+        exit();
+    }
+
     // SQL query to insert data into servicers
     $query = "INSERT INTO servicers (servicer_name, service_time, price) 
               VALUES ('$servicer_name', '$servicer_time', '$price')";

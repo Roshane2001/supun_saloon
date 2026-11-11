@@ -64,3 +64,23 @@ $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
     fillColor: "rgba(255, 165, 52, .14)",
 });
 </script>
+<script>
+$(document).ready(function() {
+    $('.alert.alert-success, .alert.alert-danger, .alert.alert-warning, .alert.alert-dismissible').each(function() {
+        var $alert = $(this);
+        if ($alert.data('toastified')) return;
+        $alert.data('toastified', true);
+        var text = $alert.clone().find('.btn-close').remove().end().text().trim().replace(/\s+/g, ' ');
+        text = text.replace(/^Error:\s*/i, '');
+        var type = 'info';
+        if ($alert.hasClass('alert-success')) type = 'success';
+        else if ($alert.hasClass('alert-danger')) type = 'error';
+        else if ($alert.hasClass('alert-warning')) type = 'warning';
+        else if ($alert.hasClass('alert-info')) type = 'info';
+        if (text) {
+            swal({ text: text, icon: type, timer: 3000, buttons: false });
+        }
+        $alert.remove();
+    });
+});
+</script>

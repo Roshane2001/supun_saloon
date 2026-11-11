@@ -152,17 +152,63 @@ while ($row = mysqli_fetch_assoc($staff_query)) {
             $('#add-row').DataTable({
                 "pageLength": 10,
             });
+            function showEditDuplicateFeedback($input, isDuplicate, label) {
+                $input.removeClass('is-valid is-invalid');
+                $input.next('.invalid-feedback.duplicate-feedback').remove();
+                if (isDuplicate) {
+                    $input.addClass('is-invalid');
+                    $('<div class="invalid-feedback duplicate-feedback">A staff member with this ' + label + ' already exists.</div>').insertAfter($input);
+                }
+            }
+
+            function checkEditDuplicate(fieldId, fieldName, label) {
+                var $input = $('#' + fieldId);
+                var value = $input.val();
+                var originalValue = $input.data('original');
+                if (originalValue !== undefined && String(value).trim() === String(originalValue).trim()) {
+                    showEditDuplicateFeedback($input, false, label);
+                    return;
+                }
+                var excludeId = $('#edit_staff_id').val();
+                if (!value || !value.trim()) {
+                    showEditDuplicateFeedback($input, false, label);
+                    return;
+                }
+                $.get('check_duplicate.php', { field: fieldName, value: value, exclude_id: excludeId }, function (res) {
+                    showEditDuplicateFeedback($input, !!(res && res.duplicate), label);
+                });
+            }
+
+            $('#edit_nic_no').on('blur', function () { checkEditDuplicate('edit_nic_no', 'nic_no', 'NIC number'); });
+            $('#edit_telephone_no').on('blur', function () { checkEditDuplicate('edit_telephone_no', 'telephone_no', 'telephone number'); });
+            $('#edit_username').on('blur', function () { checkEditDuplicate('edit_username', 'username', 'username'); });
+
+            $('#editStaffModal form').on('submit', function (e) {
+                if ($('#editStaffModal .is-invalid').length) {
+                    e.preventDefault();
+                    swal('Error', 'Please fix the duplicate fields before submitting.', 'error');
+                }
+            });
 
             // Populate Edit Modal on click
+            var currentStaffId = <?php echo (int) $_SESSION['staff_id']; ?>;
             $(document).on('click', '.btn-edit-staff', function() {
                 var btn = $(this);
+                $('#editStaffModal .invalid-feedback.duplicate-feedback').remove();
+                $('#editStaffModal .is-invalid').removeClass('is-invalid');
                 $('#edit_staff_id').val(btn.data('id'));
                 $('#edit_staff_name').val(btn.data('name'));
-                $('#edit_nic_no').val(btn.data('nic'));
-                $('#edit_username').val(btn.data('username'));
+                $('#edit_nic_no').val(btn.data('nic')).data('original', btn.data('nic'));
+                $('#edit_username').val(btn.data('username')).data('original', btn.data('username'));
                 $('#edit_address').val(btn.data('address'));
-                $('#edit_telephone_no').val(btn.data('telephone'));
+                $('#edit_telephone_no').val(btn.data('telephone')).data('original', btn.data('telephone'));
                 $('#edit_role_id').val(btn.data('role'));
+                // A staff member cannot change their own role
+                if (parseInt(btn.data('id')) === currentStaffId) {
+                    $('#edit_role_id').prop('disabled', true);
+                } else {
+                    $('#edit_role_id').prop('disabled', false);
+                }
             });
         });
     </script>

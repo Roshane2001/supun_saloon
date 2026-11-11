@@ -242,8 +242,6 @@
                                 <div class="u-text">
                                     <h4><?php echo htmlspecialchars($_SESSION['staff_name'] ?? 'Guest'); ?></h4>
                                     <p class="text-muted"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></p>
-                                    <a href="<?php echo $base_path; ?>staff/profile.php" class="btn btn-xs btn-secondary btn-sm">View
-                                        Profile</a>
                                 </div>
                             </div>
                         </li>

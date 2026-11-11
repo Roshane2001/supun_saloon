@@ -48,6 +48,22 @@ if (!isset($_SESSION['staff_id'])) {
                                 </div>
                                 <form action="servicers_submit.php" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
+                                        <?php if (isset($_GET['status'])): ?>
+                                        <div class="alert alert-<?php echo $_GET['status'] == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show"
+                                            role="alert">
+                                            <?php
+                                            if ($_GET['status'] == 'success') {
+                                                echo 'Service added successfully!';
+                                            } else {
+                                                echo isset($_GET['message']) && $_GET['message'] !== ''
+                                                    ? htmlspecialchars($_GET['message'])
+                                                    : 'Error processing request.';
+                                            }
+                                            ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <?php endif; ?>
 
                                         <div class="row">
                                             <div class="col-md-6 col-lg-6">

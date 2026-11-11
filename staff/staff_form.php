@@ -144,6 +144,39 @@ $roles_query = mysqli_query($con, "SELECT * FROM tblrole");
     <!-- include/script.php -->
     <?php include "../include/script.php"; ?>
 
+    <script>
+    function showDuplicateFeedback($input, isDuplicate, label) {
+        $input.removeClass('is-valid is-invalid');
+        $input.next('.invalid-feedback.duplicate-feedback').remove();
+        if (isDuplicate) {
+            $input.addClass('is-invalid');
+            $('<div class="invalid-feedback duplicate-feedback">A staff member with this ' + label + ' already exists.</div>').insertAfter($input);
+        }
+    }
+
+    function checkStaffDuplicate(fieldId, fieldName, label) {
+        var value = $('#' + fieldId).val();
+        if (!value || !value.trim()) {
+            showDuplicateFeedback($('#' + fieldId), false, label);
+            return;
+        }
+        $.get('check_duplicate.php', { field: fieldName, value: value }, function (res) {
+            showDuplicateFeedback($('#' + fieldId), !!(res && res.duplicate), label);
+        });
+    }
+
+    $('#nic_no').on('blur', function () { checkStaffDuplicate('nic_no', 'nic_no', 'NIC number'); });
+    $('#telephone_no').on('blur', function () { checkStaffDuplicate('telephone_no', 'telephone_no', 'telephone number'); });
+    $('#username').on('blur', function () { checkStaffDuplicate('username', 'username', 'username'); });
+
+    $('form').on('submit', function (e) {
+        if ($('.is-invalid').length) {
+            e.preventDefault();
+            swal('Error', 'Please fix the duplicate fields before submitting.', 'error');
+        }
+    });
+    </script>
+
 </body>
 
 </html>
