@@ -142,10 +142,13 @@ if (!isset($_SESSION['staff_id'])) {
                     // ====================================
 
                     $appointment_query = mysqli_query($con, "
-                        SELECT *
+                        SELECT tblappointment.*,
+                               servicers.servicer_name AS service_name
                         FROM tblappointment
-                        WHERE status = 1
-                        ORDER BY date DESC, time DESC
+                        LEFT JOIN servicers
+                            ON tblappointment.service_id = servicers.id
+                        WHERE tblappointment.status = 1
+                        ORDER BY tblappointment.id DESC
                     ");
 
                     if (!$appointment_query) {
@@ -394,9 +397,8 @@ if (!isset($_SESSION['staff_id'])) {
                                                     <th>#</th>
                                                     <th>Customer Name</th>
                                                     <th>Telephone Number</th>
-                                                    <th>Service ID</th>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
+                                                    <th>Service Name</th>
+                                                    <th>Date & Time</th>
                                                     <th>Note</th>
                                                 </tr>
                                             </thead>
@@ -407,8 +409,6 @@ if (!isset($_SESSION['staff_id'])) {
 
                                                 if ($appointment_count > 0) {
 
-                                                    $count = 1;
-
                                                     while ($appointment = mysqli_fetch_assoc($appointment_query)) {
 
                                                 ?>
@@ -416,7 +416,7 @@ if (!isset($_SESSION['staff_id'])) {
                                                     <tr>
 
                                                         <td>
-                                                            <?php echo $count++; ?>
+                                                            <?php echo htmlspecialchars($appointment['id'] ?? ''); ?>
                                                         </td>
 
                                                         <td>
@@ -431,22 +431,23 @@ if (!isset($_SESSION['staff_id'])) {
 
                                                         <td>
                                                             <span class="badge badge-info">
-                                                                <?php echo htmlspecialchars($appointment['service_id'] ?? 'N/A'); ?>
+                                                                <?php echo htmlspecialchars($appointment['service_name'] ?? 'N/A'); ?>
                                                             </span>
                                                         </td>
 
                                                         <td>
                                                             <?php
-                                                            if (!empty($appointment['date'])) {
-                                                                echo date('d M Y', strtotime($appointment['date']));
-                                                            } else {
-                                                                echo 'N/A';
+                                                            $date_part = !empty($appointment['date'])
+                                                                ? date('d M Y', strtotime($appointment['date']))
+                                                                : 'N/A';
+                                                            $time_part = !empty($appointment['time'])
+                                                                ? htmlspecialchars($appointment['time'])
+                                                                : '';
+                                                            echo $date_part;
+                                                            if ($time_part !== '') {
+                                                                echo ' <span class="text-muted">' . $time_part . '</span>';
                                                             }
                                                             ?>
-                                                        </td>
-
-                                                        <td>
-                                                            <?php echo htmlspecialchars($appointment['time'] ?? 'N/A'); ?>
                                                         </td>
 
                                                         <td>
