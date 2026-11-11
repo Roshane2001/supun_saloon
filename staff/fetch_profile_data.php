@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 // Adjusting base path to reach include directory from auth folder
