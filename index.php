@@ -136,10 +136,37 @@ if (!isset($_SESSION['staff_id'])) {
 
                     $supplier_count = mysqli_fetch_assoc($supplier_res)['total'] ?? 0;
 
+                    //Today's Confirmed Appointments
+                    $today_appointments_res = mysqli_query($con, "
+                        SELECT COUNT(*) AS total    
+                    FROM tblappointment
+                        WHERE status = 2 AND date = CURDATE()   
+                    ");
 
-                    // ====================================
-                    // ACTIVE APPOINTMENTS ONLY
-                    // ====================================
+                    $today_appointments = mysqli_fetch_assoc($today_appointments_res)['total'] ?? 0;
+
+                    //Pending Appointments
+                    $pending_appointments_res = mysqli_query($con, "
+                        SELECT COUNT(*) AS total
+                        FROM tblappointment
+                        WHERE status = 1
+                    ");
+
+                    $pending_appointments = mysqli_fetch_assoc($pending_appointments_res)['total'] ?? 0;
+
+                    //Today's Completed Appointments
+                    $today_completed_appointments_res = mysqli_query($con, "
+                        SELECT COUNT(*) AS total
+                        FROM tblappointment
+                        WHERE status = 3 AND date = CURDATE()
+                    ");
+
+                    $today_completed_appointments = mysqli_fetch_assoc($today_completed_appointments_res)['total'] ?? 0;
+                    
+
+                    
+        
+                        // Active Appointments
 
                     $appointment_query = mysqli_query($con, "
                         SELECT tblappointment.*,
@@ -163,9 +190,9 @@ if (!isset($_SESSION['staff_id'])) {
                     <!-- DASHBOARD CARDS -->
                     <!-- ==================================== -->
 
-                    <div class="row">
+                    <!--<div class="row">
 
-                        <!-- Day Sales -->
+                        !-- Day Sales --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -189,7 +216,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Day Net Profit -->
+                        !-- Day Net Profit --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -213,7 +240,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Customers -->
+                        !-- Customers --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -237,7 +264,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Staff -->
+                        !-- Staff --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -261,7 +288,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Total Sales -->
+                        !-- Total Sales --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -285,7 +312,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Net Profit -->
+                        !-- Net Profit --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -309,7 +336,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Products -->
+                        !-- Products --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -333,7 +360,7 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
-                        <!-- Suppliers -->
+                        !-- Suppliers --
                         <div class="col-sm-6 col-md-3">
                             <div class="card card-stats card-round">
                                 <div class="card-body">
@@ -357,6 +384,80 @@ if (!isset($_SESSION['staff_id'])) {
                             </div>
                         </div>
 
+                    </div>-->
+                    <div class="row">
+
+                        <!-- Day Sales -->
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-icon">
+                                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                                <i class="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-stats ms-3 ms-sm-0">
+                                            <div class="numbers">
+                                                <p class="card-category">Today's Confirmed Appointments</p>
+                                                <h4 class="card-title">
+                                                    <?php echo number_format($today_appointments); ?>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Appointments -->
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-icon">
+                                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                                <i class="fas fa-clock"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-stats ms-3 ms-sm-0">
+                                            <div class="numbers">
+                                                <p class="card-category">Pending Appointments</p>
+                                                <h4 class="card-title">
+                                                    <?php echo number_format($pending_appointments); ?>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today Completed Appointments -->
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card card-stats card-round">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-icon">
+                                            <div class="icon-big text-center icon-success bubble-shadow-small">
+                                                <i class="fas fa-check-circle"></i>
+                                            </div>
+                                        </div>
+
+                                        <div class="col col-stats ms-3 ms-sm-0">
+                                            <div class="numbers">
+                                                <p class="card-category">Today Completed Appointments</p>
+                                                <h4 class="card-title">
+                                                    <?php echo number_format($today_completed_appointments); ?>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
