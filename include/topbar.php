@@ -228,25 +228,13 @@
                         <img src="<?php echo $base_path; ?>assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
                     </div>
                     <span class="profile-username">
-                        <span class="op-7">Hi,</span>
                         <span class="fw-bold"><?php echo htmlspecialchars($_SESSION['staff_name'] ?? 'Guest'); ?></span>
+                        <small class="op-7 d-block"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></small>
                     </span>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated fadeIn">
                     <div class="dropdown-user-scroll scrollbar-outer">
                         <li>
-                            <div class="user-box">
-                                <div class="avatar-lg">
-                                    <img src="<?php echo $base_path; ?>assets/img/profile.jpg" alt="image profile" class="avatar-img rounded" />
-                                </div>
-                                <div class="u-text">
-                                    <h4><?php echo htmlspecialchars($_SESSION['staff_name'] ?? 'Guest'); ?></h4>
-                                    <p class="text-muted"><?php echo htmlspecialchars($_SESSION['username'] ?? ''); ?></p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="<?php echo $base_path; ?>staff/profile.php">My Profile</a>
                             <!--<a class="dropdown-item" href="<?php echo $base_path; ?>/staff/balance.php">My Balance</a>-->
                             <!--<a class="dropdown-item" href="<?php echo $base_path; ?>/staff/inbox.php">Inbox</a>-->
