@@ -85,15 +85,6 @@ while ($row = mysqli_fetch_assoc($category_query)) {
                                                     <th style="width: 10%">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Parent Category</th>
-                                                    <th>Sub Category Name</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </tfoot>
                                             <tbody>
                                                 <?php foreach ($category_data as $cat): ?>
                                                 <tr>

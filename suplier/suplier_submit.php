@@ -12,7 +12,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_suplier'])) {
     // Retrieve and sanitize form data
     $suplier_name = mysqli_real_escape_string($con, $_POST['suplier_name']);
     $contact_person = mysqli_real_escape_string($con, $_POST['contact_person']);
-    $tel_no = mysqli_real_escape_string($con, $_POST['tel_no']);
+    // Telephone number is required and must contain exactly 10 digits
+    $tel_no = trim($_POST['tel_no'] ?? '');
+    // Normalise the number so "011 234 5678" is accepted as 0112345678
+    $tel_no = preg_replace('/\D+/', '', $tel_no);
+
+    if (!preg_match('/^0\d{9}$/', $tel_no)) {
+        header("Location: suplier_add.php?status=error&message=" . urlencode("Please enter a valid 10-digit telephone number (e.g. 0112345678)."));
+        exit();
+    }
+
+    $tel_no = mysqli_real_escape_string($con, $tel_no);
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $address = mysqli_real_escape_string($con, $_POST['address']);
 

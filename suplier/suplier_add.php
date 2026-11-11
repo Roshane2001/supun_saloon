@@ -67,7 +67,10 @@ mysqli_query($con, $log_query);
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tel_no">Telephone No</label>
-                                                    <input type="text" class="form-control" id="tel_no" name="tel_no" placeholder="Enter Telephone Number" required />
+                                                    <input type="tel" class="form-control" id="tel_no" name="tel_no" placeholder="Enter Telephone Number (10 digits)"
+                                                        inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
+                                                        title="Enter a 10-digit number starting with 0, e.g. 0112345678"
+                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

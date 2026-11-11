@@ -50,6 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_booking'])) {
         exit();
     }
 
+    // Appointments can only be booked for today or a future date
+    $date_obj = DateTime::createFromFormat('Y-m-d', $date);
+
+    if (!$date_obj || $date_obj->format('Y-m-d') !== $date || $date < date('Y-m-d')) {
+        echo "<script>
+            alert('Please select today or a future date.');
+            window.history.back();
+        </script>";
+        exit();
+    }
+
     // 1. Check whether customer already exists
     $check_customer = mysqli_prepare(
         $con,

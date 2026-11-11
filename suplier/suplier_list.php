@@ -90,18 +90,6 @@ while ($row = mysqli_fetch_assoc($supplier_query)) {
                                                     <th style="width: 10%">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Company Name</th>
-                                                    <th>Contact Person</th>
-                                                    <th>Telephone No</th>
-                                                    <th>Email</th>
-                                                    <th>Address</th>
-                                                    <th>Status</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </tfoot>
                                             <tbody>
                                                 <?php foreach ($supplier_data as $supplier): ?>
                                                 <tr>

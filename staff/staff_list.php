@@ -85,21 +85,10 @@ while ($row = mysqli_fetch_assoc($staff_query)) {
                                                     <th>Address</th>
                                                     <th>Telephone</th>
                                                     <th>Role</th>
+                                                    <th>Status</th>
                                                     <th style="width: 10%">Action</th>
                                                 </tr>
                                             </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Name</th>
-                                                    <th>NIC No.</th>
-                                                    <th>User Name</th>
-                                                    <th>Address</th>
-                                                    <th>Telephone</th>
-                                                    <th>Role</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </tfoot>
                                             <tbody>
                                                 <?php foreach ($staff_data as $staff): ?>
                                                 <tr>
@@ -110,6 +99,14 @@ while ($row = mysqli_fetch_assoc($staff_query)) {
                                                     <td><?php echo htmlspecialchars($staff['address']); ?></td>
                                                     <td><?php echo htmlspecialchars($staff['telephone_no']); ?></td>
                                                     <td><?php echo htmlspecialchars($staff['role']); ?></td>
+                                                    <td>
+                                                        <div class="form-check form-switch">
+                                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                                <?php echo $staff['is_active'] ? 'checked' : ''; ?>
+                                                                <?php echo ((int) $staff['id'] === (int) $_SESSION['staff_id']) ? 'disabled title="You cannot change the status of your own account"' : 'title="Activate / Deactivate Staff"'; ?>
+                                                                onchange="window.location.href='staff_status_toggle.php?id=<?php echo $staff['id']; ?>'">
+                                                        </div>
+                                                    </td>
                                                     <td>
                                                         <div class="form-button-action">
                                                             <button type="button" 
@@ -126,12 +123,6 @@ while ($row = mysqli_fetch_assoc($staff_query)) {
                                                                 title="Edit Staff">
                                                                 <i class="fa fa-edit"></i>
                                                             </button>
-                                                            <a href="staff_delet.php?id=<?php echo $staff['id']; ?>"
-                                                                class="btn btn-link btn-danger"
-                                                                data-bs-toggle="tooltip" title="Remove Staff"
-                                                                onclick="return confirm('Are you sure you want to remove this staff member?');">
-                                                                <i class="fa fa-times"></i>
-                                                            </a>
                                                         </div>
                                                     </td>
                                                 </tr>

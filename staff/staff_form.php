@@ -80,8 +80,11 @@ $roles_query = mysqli_query($con, "SELECT * FROM tblrole");
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="telephone_no">Telephone No</label>
-                                                    <input type="text" class="form-control" id="telephone_no"
-                                                        name="telephone_no" placeholder="Enter Telephone Number" />
+                                                    <input type="tel" class="form-control" id="telephone_no"
+                                                        name="telephone_no" placeholder="Enter Telephone Number (10 digits)"
+                                                        inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
+                                                        title="Enter a 10-digit number starting with 0, e.g. 0771234567"
+                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="address">Address</label>

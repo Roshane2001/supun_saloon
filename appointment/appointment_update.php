@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_appointment'])
     $service_id = intval($_POST['service_id'] ?? 0);
 
     $customer_name = trim($_POST['customer_name'] ?? '');
+    $telephone_number = trim($_POST['telephone_number'] ?? '');
     $date = trim($_POST['date'] ?? '');
     $time = trim($_POST['time'] ?? '');
     $status = isset($_POST['status']) ? intval($_POST['status']) : -1;
@@ -50,6 +51,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_appointment'])
         exit();
     }
 
+    // Only today or future dates can be scheduled. An appointment that is already
+    // in the past may still be updated (e.g. marked Complete/Cancel) as long as
+    // its date is left unchanged.
+    $current_date_res = mysqli_query($con, "SELECT date FROM tblappointment WHERE id = " . intval($appointment_id));
+    $current_appointment = $current_date_res ? mysqli_fetch_assoc($current_date_res) : null;
+    $original_date = $current_appointment['date'] ?? '';
+
+    if ($date !== $original_date && $date < date('Y-m-d')) {
+        header("Location: appointment_list.php?status=error&message=" . urlencode("Please select today or a future date for the appointment."));
+        exit();
+    }
+
+    // Telephone number must contain exactly 10 digits (optional field)
+    $telephone_number = preg_replace('/\D+/', '', $telephone_number);
+
+    if ($telephone_number !== '' && !preg_match('/^0\d{9}$/', $telephone_number)) {
+        header("Location: appointment_list.php?status=error&message=" . urlencode("Please enter a valid 10-digit telephone number (e.g. 0771234567)."));
+        exit();
+    }
+
     // Check whether service exists and is active
     $service_check = mysqli_prepare(
         $con,
@@ -74,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_appointment'])
     $query = "UPDATE tblappointment SET
                 service_id = ?,
                 customer_name = ?,
+                telephone_number = ?,
                 date = ?,
                 time = ?,
                 status = ?,
@@ -89,9 +111,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_appointment'])
 
     mysqli_stmt_bind_param(
         $stmt,
-        "isssisi",
+        "issssisi",
         $service_id,
         $customer_name,
+        $telephone_number,
         $date,
         $time,
         $status,

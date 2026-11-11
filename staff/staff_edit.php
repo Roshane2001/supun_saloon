@@ -28,7 +28,10 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label>Telephone</label>
-                                <input id="edit_telephone_no" name="telephone_no" type="text" class="form-control" placeholder="Telephone Number" />
+                                <input id="edit_telephone_no" name="telephone_no" type="tel" class="form-control" placeholder="Telephone Number (10 digits)"
+                                    inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
+                                    title="Enter a 10-digit number starting with 0, e.g. 0771234567"
+                                    oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" />
                             </div>
                         </div>
                         <div class="col-md-6">

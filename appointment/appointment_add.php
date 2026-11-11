@@ -87,15 +87,19 @@ $Servicer_query = mysqli_query($con, "SELECT * FROM servicers ORDER BY servicer_
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="telephone_number">Telephone Number</label>
-                                                    <input type="text" class="form-control" id="telephone_number"
-                                                        name="telephone_number" placeholder="Enter Telephone Number">
+                                                    <input type="tel" class="form-control" id="telephone_number"
+                                                        name="telephone_number" placeholder="Enter Telephone Number (10 digits)"
+                                                        inputmode="numeric" pattern="0[0-9]{9}" maxlength="10"
+                                                        title="Enter a 10-digit number starting with 0, e.g. 0771234567"
+                                                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label for="date">Date</label>
                                                     <input type="date" class="form-control" id="date"
-                                                        name="date" placeholder="Enter Date" required />
+                                                        name="date" placeholder="Enter Date"
+                                                        min="<?php echo date('Y-m-d'); ?>" required />
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="time">Time</label>
@@ -105,7 +109,7 @@ $Servicer_query = mysqli_query($con, "SELECT * FROM servicers ORDER BY servicer_
                                                 <div class="form-group">
                                                     <label for="note">Note</label>
                                                     <input type="text" class="form-control" id="note"
-                                                        name="note" placeholder="Enter Note" required />
+                                                        name="note" placeholder="Enter Note (optional)" />
                                                 </div>
                                             </div>
                                         </div>

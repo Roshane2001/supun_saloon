@@ -15,7 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_staff'])) {
     $staff_name = mysqli_real_escape_string($con, $_POST['staff_name']);
     $nic_no = mysqli_real_escape_string($con, $_POST['nic_no']);
     $address = mysqli_real_escape_string($con, $_POST['address']);
-    $telephone_no = mysqli_real_escape_string($con, $_POST['telephone_no']);
+    // Telephone number must contain exactly 10 digits (optional field)
+    $telephone_no = trim($_POST['telephone_no'] ?? '');
+    // Normalise the number so "077 123 4567" is accepted as 0771234567
+    $telephone_no = preg_replace('/\D+/', '', $telephone_no);
+
+    if ($telephone_no !== '' && !preg_match('/^0\d{9}$/', $telephone_no)) {
+        header("Location: staff_list.php?status=error&message=" . urlencode("Please enter a valid 10-digit telephone number (e.g. 0771234567)."));
+        exit();
+    }
+
+    $telephone_no = mysqli_real_escape_string($con, $telephone_no);
     $role_id = mysqli_real_escape_string($con, $_POST['role_id']);
     $username = mysqli_real_escape_string($con, $_POST['username']);
     $password = $_POST['password'];

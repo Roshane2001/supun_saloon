@@ -13,7 +13,17 @@ if (!isset($_SESSION['staff_id'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $staff_id = mysqli_real_escape_string($con, $_POST['staff_id']);
     $staff_name = mysqli_real_escape_string($con, $_POST['staff_name']);
-    $telephone_no = mysqli_real_escape_string($con, $_POST['telephone_no']);
+    // Telephone number must contain exactly 10 digits (optional field)
+    $telephone_no = trim($_POST['telephone_no'] ?? '');
+    // Normalise the number so "077 123 4567" is accepted as 0771234567
+    $telephone_no = preg_replace('/\D+/', '', $telephone_no);
+
+    if ($telephone_no !== '' && !preg_match('/^0\d{9}$/', $telephone_no)) {
+        echo json_encode(['status' => 'error', 'message' => 'Please enter a valid 10-digit telephone number (e.g. 0771234567).']);
+        exit();
+    }
+
+    $telephone_no = mysqli_real_escape_string($con, $telephone_no);
     $address = mysqli_real_escape_string($con, $_POST['address']);
     $password = $_POST['password']; // New password, if provided
 

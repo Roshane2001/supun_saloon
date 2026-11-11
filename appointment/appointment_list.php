@@ -229,13 +229,12 @@ if ($product_query) {
                                                 <tr>
                                                     <th>ID</th>
                                                     <th>Name</th>
+                                                    <th>Telephone Number</th>
                                                     <th>Service</th>
-                                                    <th>Date</th>
-                                                    <th>Time</th>
+                                                    <th>Date &amp; Time</th>
 
                                                     <th>Status</th>
-                                                    <th>Note</th>
-                                                    <th style="width: 10%">Action</th>
+                                                    <th style="width: 15%">Action</th>
                                                 </tr>
 
                                             </thead>
@@ -256,15 +255,15 @@ if ($product_query) {
                                                     </td>
 
                                                     <td>
+                                                        <?php echo htmlspecialchars($product['telephone_number'] ?? 'N/A'); ?>
+                                                    </td>
+
+                                                    <td>
                                                         <?php echo htmlspecialchars($product['service_name'] ?? 'N/A'); ?>
                                                     </td>
 
                                                     <td>
-                                                        <?php echo htmlspecialchars($product['date'] ?? 'N/A'); ?>
-                                                    </td>
-
-                                                    <td>
-                                                        <?php echo htmlspecialchars($product['time'] ?? 'N/A'); ?>
+                                                        <?php echo htmlspecialchars(trim(($product['date'] ?? '') . ' ' . ($product['time'] ?? '')) ?: 'N/A'); ?>
                                                     </td>
 
 
@@ -303,13 +302,26 @@ if ($product_query) {
                                                     </td>
 
 
-                                                    <td>
-                                                        <?php echo htmlspecialchars($product['note'] ?? 'N/A'); ?>
-                                                    </td>
-
-
                                                     <!-- Action -->
                                                     <td>
+                                                        <div class="form-button-action gap-2 align-items-center">
+
+                                                        <button type="button"
+                                                            class="btn btn-info btn-view-appointment"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#viewAppointmentModal"
+                                                            title="View appointment details"
+                                                            data-id="<?php echo htmlspecialchars($product['id']); ?>"
+                                                            data-customer-name="<?php echo htmlspecialchars($product['customer_name'], ENT_QUOTES); ?>"
+                                                            data-telephone="<?php echo htmlspecialchars($product['telephone_number'] ?? '', ENT_QUOTES); ?>"
+                                                            data-service-name="<?php echo htmlspecialchars($product['service_name'] ?? '', ENT_QUOTES); ?>"
+                                                            data-date="<?php echo htmlspecialchars($product['date'] ?? ''); ?>"
+                                                            data-time="<?php echo htmlspecialchars($product['time'] ?? ''); ?>"
+                                                            data-status="<?php echo htmlspecialchars($product['status'] ?? ''); ?>"
+                                                            data-note="<?php echo htmlspecialchars($product['note'] ?? '', ENT_QUOTES); ?>">
+
+                                                            <i class="fas fa-eye"></i> View
+                                                        </button>
 
                                                         <button type="button"
                                                             class="btn btn-primary btn-edit-appointment"
@@ -318,6 +330,7 @@ if ($product_query) {
                                                             data-id="<?php echo htmlspecialchars($product['id']); ?>"
                                                             data-service-id="<?php echo htmlspecialchars($product['service_id']); ?>"
                                                             data-customer-name="<?php echo htmlspecialchars($product['customer_name'], ENT_QUOTES); ?>"
+                                                            data-telephone="<?php echo htmlspecialchars($product['telephone_number'] ?? '', ENT_QUOTES); ?>"
                                                             data-date="<?php echo htmlspecialchars($product['date'] ?? ''); ?>"
                                                             data-time="<?php echo htmlspecialchars($product['time'] ?? ''); ?>"
                                                             data-status="<?php echo htmlspecialchars($product['status']); ?>"
@@ -326,6 +339,7 @@ if ($product_query) {
                                                             <i class="fas fa-edit"></i> Edit
                                                         </button>
 
+                                                        </div>
                                                     </td>
 
                                                 </tr>
@@ -367,6 +381,80 @@ if ($product_query) {
     <?php include 'appointment_edit.php'; ?>
 
 
+    <!-- View Appointment Modal -->
+    <div class="modal fade" id="viewAppointmentModal" tabindex="-1"
+        role="dialog" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold">View</span>
+                        <span class="fw-light">Appointment</span>
+                    </h5>
+
+                    <button type="button" class="btn-close"
+                        data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+
+                    <table class="table table-borderless mb-0">
+                        <tbody>
+                            <tr>
+                                <th style="width: 35%">Appointment ID</th>
+                                <td id="view_id"></td>
+                            </tr>
+                            <tr>
+                                <th>Customer Name</th>
+                                <td id="view_customer_name"></td>
+                            </tr>
+                            <tr>
+                                <th>Telephone Number</th>
+                                <td id="view_telephone"></td>
+                            </tr>
+                            <tr>
+                                <th>Service</th>
+                                <td id="view_service"></td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td id="view_date"></td>
+                            </tr>
+                            <tr>
+                                <th>Time</th>
+                                <td id="view_time"></td>
+                            </tr>
+                            <tr>
+                                <th>Status</th>
+                                <td id="view_status"></td>
+                            </tr>
+                            <tr>
+                                <th>Note</th>
+                                <td id="view_note"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="modal-footer border-0">
+
+                    <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
     <script>
     $(document).ready(function() {
 
@@ -387,13 +475,44 @@ if ($product_query) {
 
             $('#edit_customer_name').val(btn.attr('data-customer-name'));
 
-            $('#edit_date').val(btn.attr('data-date'));
+            $('#edit_telephone_number').val(btn.attr('data-telephone'));
+
+            // Past appointments can still be edited, but a new date cannot be in the past
+            var today = new Date().toISOString().split('T')[0];
+            var appointmentDate = btn.attr('data-date');
+
+            $('#edit_date').val(appointmentDate);
+            $('#edit_date').attr('min', !appointmentDate || appointmentDate < today ? today : appointmentDate);
 
             $('#edit_time').val(btn.attr('data-time'));
 
             $('#edit_status').val(btn.attr('data-status'));
 
             $('#edit_note').val(btn.attr('data-note'));
+
+        });
+
+        // Populate View Appointment Modal
+        $(document).on('click', '.btn-view-appointment', function() {
+
+            var btn = $(this);
+            var status = btn.attr('data-status');
+
+            var statusLabels = {
+                '0': '<span class="badge bg-danger">Cancel</span>',
+                '1': '<span class="badge bg-warning">Pending</span>',
+                '2': '<span class="badge bg-info">Confirm</span>',
+                '3': '<span class="badge bg-success">Complete</span>'
+            };
+
+            $('#view_id').text(btn.attr('data-id'));
+            $('#view_customer_name').text(btn.attr('data-customer-name'));
+            $('#view_telephone').text(btn.attr('data-telephone') || 'N/A');
+            $('#view_service').text(btn.attr('data-service-name') || 'N/A');
+            $('#view_date').text(btn.attr('data-date') || 'N/A');
+            $('#view_time').text(btn.attr('data-time') || 'N/A');
+            $('#view_status').html(statusLabels[status] || '<span class="badge bg-secondary">N/A</span>');
+            $('#view_note').text(btn.attr('data-note') || 'N/A');
 
         });
 

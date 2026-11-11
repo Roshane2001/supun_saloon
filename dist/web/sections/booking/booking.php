@@ -96,7 +96,8 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label" for="date">Preferred Date</label>
-                                <input type="date" id="date" name="date" class="form-control" required>
+                                <input type="date" id="date" name="date" class="form-control"
+                                    min="<?php echo date('Y-m-d'); ?>" required>
                             </div>
                         </div>
                         <div class="col-md-6">

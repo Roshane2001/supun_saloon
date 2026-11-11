@@ -13,11 +13,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_appointment'])) 
     
     $service_id = mysqli_real_escape_string($con, $_POST['service_id']);
     $customer_name = mysqli_real_escape_string($con, $_POST['customer_name']);
-    $telephone_number = mysqli_real_escape_string($con, $_POST['telephone_number']);
+    // Telephone number must contain exactly 10 digits (optional field)
+    $telephone_number = trim($_POST['telephone_number'] ?? '');
+    // Normalise the number so "077 123 4567" is accepted as 0771234567
+    $telephone_number = preg_replace('/\D+/', '', $telephone_number);
+
+    if ($telephone_number !== '' && !preg_match('/^0\d{9}$/', $telephone_number)) {
+        header("Location: appointment_add.php?status=error&message=" . urlencode("Please enter a valid 10-digit telephone number (e.g. 0771234567)."));
+        exit();
+    }
+
+    $telephone_number = mysqli_real_escape_string($con, $telephone_number);
     $date = mysqli_real_escape_string($con, $_POST['date']);
     $time = mysqli_real_escape_string($con, $_POST['time']);
-    $note = mysqli_real_escape_string($con, $_POST['note']);
+    $note = mysqli_real_escape_string($con, trim($_POST['note'] ?? ''));
 
+
+    // Appointments can only be scheduled for today or a future date
+    $date_obj = DateTime::createFromFormat('Y-m-d', $date);
+
+    if (!$date_obj || $date_obj->format('Y-m-d') !== $date) {
+        header("Location: appointment_add.php?status=error&message=" . urlencode("Invalid appointment date."));
+        exit();
+    }
+
+    if ($date < date('Y-m-d')) {
+        header("Location: appointment_add.php?status=error&message=" . urlencode("Please select today or a future date for the appointment."));
+        exit();
+    }
 
     // Insert into tblappointment
     $query = "INSERT INTO tblappointment (service_id, customer_name, telephone_number, date, time, note) 
