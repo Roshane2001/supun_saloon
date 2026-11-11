@@ -11,11 +11,12 @@ if (!isset($_SESSION['staff_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
     // Retrieve and sanitize form data for update
-    $servicer_id = mysqli_real_escape_string($con, $_POST['servicer_id']);
-    $servicer_name = mysqli_real_escape_string($con, $_POST['servicer_name']);
-    $nic_no = mysqli_real_escape_string($con, $_POST['nic_no']);
-    $service_time = mysqli_real_escape_string($con, $_POST['service_time']);
-    $status = mysqli_real_escape_string($con, $_POST['status']);
+    $servicer_id = mysqli_real_escape_string($con, $_POST['servicer_id'] ?? '');
+    $servicer_name = mysqli_real_escape_string($con, $_POST['servicer_name'] ?? '');
+    $nic_no = mysqli_real_escape_string($con, $_POST['nic_no'] ?? '');
+    $service_time = mysqli_real_escape_string($con, $_POST['service_time'] ?? '');
+    $status = mysqli_real_escape_string($con, $_POST['status'] ?? '');
+    $password = $_POST['password'] ?? '';
     $dup_check = mysqli_query($con, "SELECT id FROM servicers WHERE servicer_name = '$servicer_name' AND id != '$servicer_id' LIMIT 1");
     if ($dup_check && mysqli_num_rows($dup_check) > 0) {
         header("Location: servicers_list.php?status=error&message=" . urlencode('A service with the same name already exists.'));
@@ -40,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
     if (mysqli_query($con, $query)) {
         // Log activity
         $user_id = $_SESSION['staff_id'];
-        $ip_address = $_SERVER['REMOTE_ADDR'];
-        $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT']);
+        $ip_address = mysqli_real_escape_string($con, $_SERVER['REMOTE_ADDR'] ?? '');
+        $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT'] ?? '');
         $details = "Updated service ID: $servicer_id. Name: $servicer_name";
         $log_query = "INSERT INTO tbluser_activity (user_id, action, ip_address, user_agent, details) 
                       VALUES ('$user_id', 'Update Service', '$ip_address', '$user_agent', '$details')";

@@ -11,9 +11,9 @@ if (!isset($_SESSION['staff_id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
     // Retrieve and sanitize form data
-    $servicer_name = mysqli_real_escape_string($con, $_POST['servicer_name']);
-    $servicer_time = mysqli_real_escape_string($con, $_POST['service_time']);
-    $price = mysqli_real_escape_string($con, $_POST['price']);
+    $servicer_name = mysqli_real_escape_string($con, $_POST['servicer_name'] ?? '');
+    $servicer_time = mysqli_real_escape_string($con, $_POST['service_time'] ?? '');
+    $price = mysqli_real_escape_string($con, $_POST['price'] ?? '');
 
     $dup_check = mysqli_query($con, "SELECT id FROM servicers WHERE servicer_name = '$servicer_name' LIMIT 1");
     if ($dup_check && mysqli_num_rows($dup_check) > 0) {
@@ -28,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
     if (mysqli_query($con, $query)) {
         // Log activity
         $user_id = $_SESSION['staff_id'];
-        $ip_address = $_SERVER['REMOTE_ADDR'];
-        $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT']);
+        $ip_address = mysqli_real_escape_string($con, $_SERVER['REMOTE_ADDR'] ?? '');
+        $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT'] ?? '');
 
         $details = "Added new service: $servicer_name (Time: $servicer_time, Price: $price)";
 
