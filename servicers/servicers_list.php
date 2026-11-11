@@ -106,7 +106,7 @@ while ($row = mysqli_fetch_assoc($servicers_query)) {
                                                             data-time="<?php echo htmlspecialchars($servicer['service_time']); ?>"
                                                             data-price="<?php echo htmlspecialchars($servicer['price']); ?>"
                                                             data-status="<?php echo $servicer['status']; ?>">
-                                                            <i class="fas fa-edit"></i> Edit
+                                                            Edit
                                                         </button>
                                                     </td>
                                                 </tr>

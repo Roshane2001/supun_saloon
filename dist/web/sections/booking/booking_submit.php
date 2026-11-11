@@ -152,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_booking'])) {
 
 
     $booking_id = mysqli_insert_id($con);
-        header("Location: ../../index.php?booking=success#booking");
+        header("Location: ../../index.php?booking=success&booking_id=" . intval($booking_id) . "#booking");
         exit();
 
     } else {

@@ -320,7 +320,7 @@ if ($product_query) {
                                                             data-status="<?php echo htmlspecialchars($product['status'] ?? ''); ?>"
                                                             data-note="<?php echo htmlspecialchars($product['note'] ?? '', ENT_QUOTES); ?>">
 
-                                                            <i class="fas fa-eye"></i> View
+                                                            View
                                                         </button>
 
                                                         <button type="button"
@@ -336,7 +336,7 @@ if ($product_query) {
                                                             data-status="<?php echo htmlspecialchars($product['status']); ?>"
                                                             data-note="<?php echo htmlspecialchars($product['note'] ?? '', ENT_QUOTES); ?>">
 
-                                                            <i class="fas fa-edit"></i> Edit
+                                                            Edit
                                                         </button>
 
                                                         </div>

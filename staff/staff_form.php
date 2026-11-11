@@ -61,7 +61,15 @@ $roles_query = mysqli_query($con, "SELECT * FROM tblrole");
                                         <?php if(isset($_GET['status'])): ?>
                                         <div class="alert alert-<?php echo $_GET['status'] == 'success' ? 'success' : 'danger'; ?> alert-dismissible fade show"
                                             role="alert">
-                                            <?php echo $_GET['status'] == 'success' ? 'Staff added successfully!' : 'Error processing request.'; ?>
+                                            <?php
+                                            if ($_GET['status'] == 'success') {
+                                                echo 'Staff added successfully!';
+                                            } else {
+                                                echo isset($_GET['message']) && $_GET['message'] !== ''
+                                                    ? htmlspecialchars($_GET['message'])
+                                                    : 'Error processing request.';
+                                            }
+                                            ?>
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
                                         </div>

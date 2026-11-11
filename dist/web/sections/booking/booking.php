@@ -31,6 +31,11 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                     aria-label="Close">&times;</button>
                 <strong>Booking received!</strong> Your salon session request has been submitted successfully.
                 Our concierge team will review it and confirm within 2 hours.
+                <?php if (isset($_GET['booking_id']) && $_GET['booking_id'] !== ''): ?>
+                    <div style="margin-top: 8px; font-weight: 600;">
+                        Booking ID: #<?php echo htmlspecialchars($_GET['booking_id']); ?>
+                    </div>
+                <?php endif; ?>
             </div>
             <script>
                 (function () {
@@ -38,6 +43,7 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
                         var url = new URL(window.location.href);
                         if (url.searchParams.has('booking')) {
                             url.searchParams.delete('booking');
+                            url.searchParams.delete('booking_id');
                             window.history.replaceState({}, document.title, url.pathname + url.hash);
                         }
                     }

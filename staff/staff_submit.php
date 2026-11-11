@@ -32,8 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_staff'])) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT); // Hash the password
 
     // SQL query to insert data into tblstaff
-    $query = "INSERT INTO tblstaff (staff_name, nic_no, address, telephone_no, role_id, username, password) 
-              VALUES ('$staff_name', '$nic_no', '$address', '$telephone_no', '$role_id', '$username', '$hashed_password')";
+    $query = "INSERT INTO tblstaff (staff_name, nic_no, address, telephone_no, role_id, username, password, is_active) 
+              VALUES ('$staff_name', '$nic_no', '$address', '$telephone_no', '$role_id', '$username', '$hashed_password', 1)";
 
     if (mysqli_query($con, $query)) {
         // Log activity
