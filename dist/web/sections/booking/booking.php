@@ -75,8 +75,8 @@ $services_data = mysqli_fetch_all($services_query, MYSQLI_ASSOC);
 
                 <div class="booking-map" style="margin-top: 18px; border-radius: var(--radius-md, 8px); overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08);">
                     <iframe title="Salon location map"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11127.397896455033!2d79.90967028320453!3d7.07255894105241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f0aad3812f91%3A0xb29ffabfd057ba2f!2sSupun%20Salon!5e0!3m2!1sen!2slk!4v1794373822625!5m2!1sen!2slk"
-                        width="100%" height="200" style="border: 0; display: block;"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.34911246596!2d79.99272241125047!3d7.200950792774523!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2e1a82b85d1e1%3A0x1bef35c591532203!2sEkala%20-%20Kotadeniyawa%20Rd!5e0!3m2!1sen!2slk!4v1794381761072!5m2!1sen!2slk"
+                        width="100%" height="265" style="border: 0; display: block;"
                         loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
                         allowfullscreen></iframe>
                 </div>
