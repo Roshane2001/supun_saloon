@@ -49,7 +49,7 @@ while ($row = mysqli_fetch_assoc($servicers_query)) {
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
-                                        <h4 class="card-title">Staff List</h4>
+                                        <h4 class="card-title">Service List</h4>
                                         <!-- The "Add Row" button and modal are for a generic datatable example.
                                              Staff addition is handled via staff_form.php.
                                         <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
@@ -75,7 +75,7 @@ while ($row = mysqli_fetch_assoc($servicers_query)) {
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
-                                                    <th>Name</th>
+                                                    <th>Service Name</th>
                                                     <th>Service Time</th>
                                                     <th>Price</th>
                                                     <th>Status</th>

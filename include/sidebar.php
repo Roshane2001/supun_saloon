@@ -138,23 +138,23 @@
                         </ul>
                     </div>
                 </li>-->
-                <!--Servicers List-->
+                <!--Services List-->
                 <li class="nav-item active">
                     <a data-bs-toggle="collapse" href="#servicer" class="collapsed" aria-expanded="false">
                         <i class="fas fa-user-tie"></i>
-                        <p>Servicers</p>
+                        <p>Services</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="servicer">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="<?php echo $base_path; ?>servicers/servicers_add.php">
-                                    <span class="sub-item">Servicer Add</span>
+                                    <span class="sub-item">Add Service</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="<?php echo $base_path; ?>servicers/servicers_list.php">
-                                    <span class="sub-item">Servicer List</span>
+                                    <span class="sub-item">Service List</span>
                                 </a>
                             </li>
                         </ul>
@@ -165,19 +165,19 @@
                 <li class="nav-item active">
                     <a data-bs-toggle="collapse" href="#appointment" class="collapsed" aria-expanded="false">
                         <i class="fas fa-user-tie"></i>
-                        <p>Appoinments</p>
+                        <p>Appointments</p>
                         <span class="caret"></span>
                     </a>
                     <div class="collapse" id="appointment">
                         <ul class="nav nav-collapse">
                             <li>
                                 <a href="<?php echo $base_path; ?>appointment/appointment_list.php">
-                                    <span class="sub-item">Appoinment List</span>
+                                    <span class="sub-item">Appointment List</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="<?php echo $base_path; ?>appointment/appointment_add.php">
-                                    <span class="sub-item">Appoinment Add</span>
+                                    <span class="sub-item">Appointment Add</span>
                                 </a>
                             </li>
                         </ul>

@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
         $user_id = $_SESSION['staff_id'];
         $ip_address = $_SERVER['REMOTE_ADDR'];
         $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT']);
-        $details = "Updated servicer ID: $servicer_id. Name: $servicer_name, Username: $username";
+        $details = "Updated service ID: $servicer_id. Name: $servicer_name";
         $log_query = "INSERT INTO tbluser_activity (user_id, action, ip_address, user_agent, details) 
-                      VALUES ('$user_id', 'Update Servicer', '$ip_address', '$user_agent', '$details')";
+                      VALUES ('$user_id', 'Update Service', '$ip_address', '$user_agent', '$details')";
         mysqli_query($con, $log_query);
 
         header("Location: servicers_list.php?status=success");
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_servicer'])) {
         exit();
     }
 } else {
-    header("Location: servicers_list.php?status=error&message=" . urlencode("Invalid request for servicer update."));
+    header("Location: servicers_list.php?status=error&message=" . urlencode("Invalid request for service update."));
     exit();
 }
 ?>

@@ -25,10 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
         $ip_address = $_SERVER['REMOTE_ADDR'];
         $user_agent = mysqli_real_escape_string($con, $_SERVER['HTTP_USER_AGENT']);
 
-        $details = "Added new servicer: $servicer_name (Time: $servicer_time, Price: $price)";
+        $details = "Added new service: $servicer_name (Time: $servicer_time, Price: $price)";
 
         $log_query = "INSERT INTO tbluser_activity (user_id, action, ip_address, user_agent, details) 
-                      VALUES ('$user_id', 'Add Servicer', '$ip_address', '$user_agent', '$details')";
+                      VALUES ('$user_id', 'Add Service', '$ip_address', '$user_agent', '$details')";
         mysqli_query($con, $log_query);
 
         // Redirect with success status

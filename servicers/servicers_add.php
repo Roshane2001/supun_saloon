@@ -44,7 +44,7 @@ if (!isset($_SESSION['staff_id'])) {
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-title">Servicers Add</div>
+                                    <div class="card-title">Add Service</div>
                                 </div>
                                 <form action="servicers_submit.php" method="POST" enctype="multipart/form-data">
                                     <div class="card-body">
@@ -53,9 +53,9 @@ if (!isset($_SESSION['staff_id'])) {
                                             <div class="col-md-6 col-lg-6">
                                                 <!--Service name-->
                                                 <div class="form-group">
-                                                    <label for="servicer_name">Servicer Name</label>
+                                                    <label for="servicer_name">Service Name</label>
                                                     <input type="text" class="form-control" id="servicer_name"
-                                                        name="servicer_name" placeholder="Enter Servicer Name"
+                                                        name="servicer_name" placeholder="Enter Service Name"
                                                         required />
                                                 </div>
                                                 <!-- Service Duration -->
