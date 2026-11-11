@@ -189,20 +189,6 @@ Circles.create({
 	styleText:    true
 })
 
-//Notify
-$.notify({
-	icon: 'icon-bell',
-	title: 'FEIT Solutions',
-	message: 'Welcome to Dashboard',
-},{
-	type: 'secondary',
-	placement: {
-		from: "bottom",
-		align: "right"
-	},
-	time: 1000,
-});
-
 // Jsvectormap
 var world_map = new jsVectorMap({
 	selector: "#world-map",
