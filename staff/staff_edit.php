@@ -43,7 +43,10 @@
                         <div class="col-md-6">
                             <div class="form-group form-group-default">
                                 <label>Password (Leave blank to keep current)</label>
-                                <input id="edit_password" name="password" type="password" class="form-control" placeholder="New Password" />
+                                <div class="position-relative">
+                                    <input id="edit_password" name="password" type="password" class="form-control" placeholder="New Password" />
+                                    <i class="show-password fa fa-eye"></i>
+                                </div>
                             </div>
                         </div>
                         <div class="col-sm-12">

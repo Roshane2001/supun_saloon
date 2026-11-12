@@ -320,9 +320,9 @@ $(document).ready(function(){
 
 	//form-group-default active if input focus
 	$(".form-group-default .form-control").focus(function(){
-		$(this).parent().addClass("active");
+		$(this).closest(".form-group-default").addClass("active");
 	}).blur(function(){
-		$(this).parent().removeClass("active");
+		$(this).closest(".form-group-default").removeClass("active");
 	})
 
 });
@@ -351,8 +351,10 @@ function showPassword(button) {
 	var inputPassword = $(button).parent().find('input');
 	if (inputPassword.attr('type') === "password") {
 		inputPassword.attr('type', 'text');
+		$(button).removeClass('fa-eye').addClass('fa-eye-slash');
 	} else {
 		inputPassword.attr('type','password');
+		$(button).removeClass('fa-eye-slash').addClass('fa-eye');
 	}
 }
 

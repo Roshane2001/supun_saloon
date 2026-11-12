@@ -108,8 +108,11 @@ $roles_query = mysqli_query($con, "SELECT * FROM tblrole");
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="password">Password</label>
-                                                    <input type="password" class="form-control" id="password"
-                                                        name="password" placeholder="Enter Password" />
+                                                    <div class="position-relative">
+                                                        <input type="password" class="form-control" id="password"
+                                                            name="password" placeholder="Enter Password" />
+                                                        <i class="show-password fa fa-eye"></i>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="role_id">Staff Role</label>

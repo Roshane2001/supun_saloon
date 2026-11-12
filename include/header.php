@@ -49,3 +49,25 @@ $favicon_path = (isset($branding_data['company_favicon']) && !empty($branding_da
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="<?php echo $base_path; ?>assets/css/demo.css" />
+
+<!-- Show/Hide Password -->
+<style>
+    .position-relative { position: relative; }
+    .form-floating-label { position: relative; }
+    .position-relative .form-control { padding-right: 35px; }
+    .show-password {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        z-index: 10;
+        color: #6c757d;
+        font-size: 16px;
+    }
+    .login .show-password {
+        right: 20px;
+        font-size: 20px;
+    }
+    #password { padding-right: 40px; }
+</style>

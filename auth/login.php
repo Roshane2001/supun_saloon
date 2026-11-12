@@ -105,8 +105,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="username" class="">Username (Staff Name)</label>
                     </div>
                     <div class="form-group form-floating-label">
-                        <input id="password" name="password" type="password" class="form-control input-border-bottom"
-                            required>
+                        <div class="position-relative">
+                            <input id="password" name="password" type="password" class="form-control input-border-bottom"
+                                required>
+                            <i class="show-password fa fa-eye"></i>
+                        </div>
                         <label for="password" class="">Password</label>
                     </div>
                     <div class="form-action mb-3">
