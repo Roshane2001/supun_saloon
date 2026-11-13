@@ -67,10 +67,10 @@ $logo_path = (isset($branding_data['company_logo']) && !empty($branding_data['co
                 // Replace these with the Saloon's real profile URLs
                 $whatsapp_number = preg_replace('/\D+/', '', $branding_data['telephone'] ?? '');
                 $social_links = [
-                    'facebook' => 'https://www.facebook.com/',
-                    'instagram' => 'https://www.instagram.com/',
-                    'whatsapp' => $whatsapp_number !== '' ? 'https://wa.me/' . $whatsapp_number : '#',
-                    'tiktok' => 'https://www.tiktok.com/',
+                    'facebook' => 'https://www.facebook.com/che9993',
+                    'instagram' => 'https://www.instagram.com/supunsalonvip/',
+                    'whatsapp' => $whatsapp_number !== '' ? 'https://wa.me/' . $whatsapp_number : '+94 71 919 2236',
+                    'tiktok' => 'https://www.tiktok.com/@supunsaloonvip?lang=en-GB',
                 ];
                 ?>
                 <div class="footer-social">

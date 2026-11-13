@@ -231,7 +231,7 @@
                     </div>
                 </li>-->
                 <!--User Activity-->
-                <li class="nav-item active">
+                <!--<li class="nav-item active">
                     <a data-bs-toggle="collapse" href="#user-activity">
                         <i class="fas fa-history"></i>
                         <p>User Activity</p>
@@ -246,7 +246,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li>-->
 
                 <!--Branding-->
                 <li class="nav-item active">
