@@ -33,7 +33,7 @@
                             <span class="feature-icon">✓</span>
                             <span>
                                 <strong>Convenient Location:</strong>
-                                Visit us at Ekala and enjoy our salon experience.
+                                Visit us at Ekala and enjoy our saloon experience.
                             </span>
                         </li>
                         <li class="feature-item">
