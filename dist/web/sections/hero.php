@@ -29,7 +29,7 @@ $base_path = '../';
             </div>
 
             <div class="hero-img-wrapper">
-                <img src="img/seat_short_view.jpeg"
+                <img src="img/long_view.jpeg"
                     alt="Luxury Saloon Interior"
                     width="600"
                     height="600">

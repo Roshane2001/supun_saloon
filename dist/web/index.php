@@ -76,12 +76,12 @@
         <!-- Hero Section -->
         <?php include 'sections/booking/booking.php'; ?>
 
+        <!-- About Section -->
+        <?php include 'sections/about.php'; ?>
+
 
         <!-- Services Section -->
         <?php include 'sections/service.php'; ?>
-
-        <!-- About Section -->
-        <!--<?php include 'sections/about.php'; ?>-->
 
         <!-- Pricing Menu Section -->
         <!--<?php include 'sections/pricing_section.php'; ?>-->
